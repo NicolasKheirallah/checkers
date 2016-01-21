@@ -2,8 +2,8 @@
 Nicolas Kheirallah
 Headers for helper.c , contains several functions
 */
-int switch_player(int *t);
-int is_enemy(int jag);
+int switch_player(int *player);
+int is_enemy(int checker);
 int pause();
 void write_turn(int *player);
 int check_checker(int GameBoard[9][8],int player, int x, int y);

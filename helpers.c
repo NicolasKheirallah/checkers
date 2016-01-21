@@ -18,20 +18,6 @@ int edge[9][8] =	 { 1,1,1,1,1,1,1,1, // 1 = the edge of the board
 };
 
 
-int switch_player(int *player)
-{
-	if (*player == 1) {
-		return 2;//change turns
-	}
-	if (*player == 2) {
-		return 1;
-	}
-	return 0;
-}
-
-
-
-
 int is_enemy(int checker) //checks if it's an enemy you move to
 {
 	if (checker == 1 || checker == 3) {
@@ -44,7 +30,16 @@ int is_enemy(int checker) //checks if it's an enemy you move to
 }
 
 
-
+int switch_player(int *player)
+{
+	if (*player == 1) {
+		return 2;//change turns
+	}
+	if (*player == 2) {
+		return 1;
+	}
+	return 0;
+}
 
 int pause() //selfexplaining
 {
@@ -87,8 +82,8 @@ int check_checker(int GameBoard[9][8], int player, int x, int y)//check checker 
 
 int check_steps(int x_pos, int y_pos, int next_x, int next_y) //player can only move one step
 {
-	if ((next_y > y_pos + 1 || next_x > x_pos + 1) ||
-		(next_y < y_pos - 1 || next_x < x_pos - 1)) {
+	if ((next_x > x_pos + 1 ||next_y > y_pos + 1 ) ||
+		(next_x < x_pos - 1 ||next_y < y_pos - 1 )) {
 		return 0;
 	}
 	else {
@@ -99,7 +94,7 @@ int check_steps(int x_pos, int y_pos, int next_x, int next_y) //player can only 
 
 int Check_ValidMove(char move_control[9][8], int next_x, int next_y)
 {
-	if (move_control[next_y - 1][next_x - 1] == 'B') {
+	if (move_control[next_x - 1][next_y - 1] == 'B') {
 		return 1;
 	}
 	else {
@@ -185,11 +180,11 @@ void update_position(int player, int GameBoard[9][8], int x_pos, int y_pos, int 
 {
 	if (player == 1) {
 		GameBoard[x_pos - 1][y_pos - 1] = 0;//removes old position
-		GameBoard[next_y - 1][next_x - 1] = 1;
+		GameBoard[next_x - 1][next_y - 1] = 1;
 	}
 	if (player == 2) {
 		GameBoard[x_pos - 1][y_pos - 1] = 0;
-		GameBoard[next_y - 1][next_x - 1] = 2;
+		GameBoard[next_x - 1][next_y - 1] = 2;
 	}
 }
 

@@ -107,9 +107,9 @@ void move_phase()
 				next_x = 0, next_y = 0;
 				printf("\n Input first X and then Y value for the piece you want to move , if you can't move type -1 and then -1 \n");
 				printf("\n Input X:");
-				scanf_s("%d", &x);
+				scanf_s("%d", &next_x);
 				printf("\n Input Y:");
-				scanf_s("\n %d", &y);
+				scanf_s("\n %d", &next_y);
 				if(next_x == -1 && next_y == -1){
 					//next turn
 					break;
