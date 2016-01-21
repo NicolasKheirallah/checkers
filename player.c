@@ -29,14 +29,14 @@ int bonus()
 }
 
 //checks if the player is at the end of the GameBoard
-int check_GameBoard_end(int turn, int next_y)
+int check_GameBoard_end(int player, int next_y)
 {
-	if (turn == 1) {
+	if (player == 1) {
 		if (next_y == 8) {
 			return 1;
 		}
 	}
-	else if (turn == 2) {
+	else if (player == 2) {
 		if (next_y == 1) {
 			return 1;
 		}
@@ -45,13 +45,13 @@ int check_GameBoard_end(int turn, int next_y)
 }
 
 //Chooses which enemy on the GameBoard you can delete 
-int delete_enemy(int turn, int GameBoard[9][8])
+int delete_enemy(int player, int GameBoard[9][8])
 {
 	int x, y;
 	printf("\n Enter the cordinate of the checker you want to remove :");
 	scanf_s("%d %d", &x, &y);
 
-	if (turn == 1) {
+	if (player == 1) {
 		if (GameBoard[x - 1][y - 1] == 2) {
 
 			GameBoard[x - 1][y - 1] = 0;
@@ -62,7 +62,7 @@ int delete_enemy(int turn, int GameBoard[9][8])
 			return 0;
 		}
 	}
-	if (turn == 2) {
+	if (player == 2) {
 		if (GameBoard[x - 1][y - 1] == 1) {
 			GameBoard[x - 1][y - 1] = 0;
 			return 1;

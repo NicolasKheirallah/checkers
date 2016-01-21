@@ -18,12 +18,12 @@ int edge[9][8] =	 { 1,1,1,1,1,1,1,1, // 1 = the edge of the board
 };
 
 
-int switch_turn(int *t)
+int switch_player(int *player)
 {
-	if (*t == 1) {
+	if (*player == 1) {
 		return 2;//change turns
 	}
-	if (*t == 2) {
+	if (*player == 2) {
 		return 1;
 	}
 	return 0;
@@ -51,18 +51,17 @@ int pause() //selfexplaining
 	int c;
 	printf("\n PRESS ENTER to CONTINUE");
 	while ((c = getchar()) != '\n' && c != EOF); //EOF =End of File
-	getchar();
-	return 1;
+	return 0;
 }
 
 
 void write_turn(int *player)//Writes who's turn
 {
 	if (*player == 1) {
-		printf("X's turn\n");
+		printf("X turn\n");
 	}
 	if (*player == 2) {
-		printf("O's turn\n");
+		printf("O turn\n");
 	}
 }
 

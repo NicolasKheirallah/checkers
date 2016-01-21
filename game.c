@@ -9,8 +9,8 @@ Creates the GameBoard and the main rules of the game
 #include "helpers.h"
 #include "player.h"
 
-void update_checker(int turn);
-void use_bonus(int c, int turn, int GameBoard[9][8], char move_control[9][8]);
+void update_checker(int player);
+void use_bonus(int c, int player, int GameBoard[9][8], char move_control[9][8]);
 
 int playerTurn = 1;//what turn it is
 int rounds = 20;
@@ -53,7 +53,7 @@ void draw_GameBoard(int GameBoard[9][8])
 		z++;
 		for (x = 0; x < 8; x++) {
 			printf("|");//creates the wall
-			switch (GameBoard[y][x]) { // when they reach the end they become caps
+			switch (GameBoard[y][x]) { // when they reach the end they become King or queen
 			case 0:
 				printf(" ");
 				break;
@@ -108,18 +108,18 @@ void move_phase()
 					//next turn
 					break;
 				}
-				if(check_movement(move_control,GameBoard,y,x,next_y,next_x, playerTurn) == 1){
-					if(takeOver(playerTurn,GameBoard,y,x,next_y,next_x) == 1){
+				if(check_movement(move_control,GameBoard,y,x, next_x, next_y, playerTurn) == 1){
+					if(takeOver(playerTurn,GameBoard,y,x, next_x, next_y) == 1){
 						update_checker(playerTurn);
 						control = 1;
 						break;
 					}
-					else if(takeOver(playerTurn,GameBoard,y,x,next_y,next_x) == 0){
+					else if(takeOver(playerTurn,GameBoard,y,x, next_x, next_y) == 0){
 						printf("Invalid!\n");
 						break;
 					}
-					else if(takeOver(playerTurn,GameBoard,y,x,next_y,next_x) == 2){
-						update_position(playerTurn,GameBoard,y,x,next_y,next_x);
+					else if(takeOver(playerTurn,GameBoard,y,x, next_x, next_y) == 2){
+						update_position(playerTurn,GameBoard,y,x,next_x, next_y);
 						control = 1;
 						break;
 					}
@@ -168,7 +168,7 @@ void run()
 		draw_GameBoard(GameBoard);//creates the GameBoard
 		write_turn(&playerTurn);
 		move_phase();
-		playerTurn = switch_turn(&playerTurn); //next turn
+		playerTurn = switch_player(&playerTurn); //next turn
 	}
 	winner();
 	pause();
@@ -178,27 +178,27 @@ void run()
 
 
 // Remove checkers
-void update_checker(int turn)
+void update_checker(int player)
 {
-	if(turn == 1){
+	if(player == 1){
 		player2 = player2-1;
 	}
-	if(turn == 2){
+	if(player == 2){
 		player1 = player1-1;
 	}
 }
 
 // remove checker when reaching the end
-void use_bonus(int c, int turn, int GameBoard[9][8], char move_control[9][8])
+void use_bonus(int c, int player, int GameBoard[9][8], char move_control[9][8])
 {
 	if(c == 1){
 		int del;
-		del = delete_enemy(turn, GameBoard);
+		del = delete_enemy(player, GameBoard);
 		if(del == 1){
-			if(turn == 1){
+			if(player == 1){
 				player2 = player2 - 1;
 			}
-			if(turn == 2){
+			if(player == 2){
 				player1 = player1 - 1;
 			}
 		}
