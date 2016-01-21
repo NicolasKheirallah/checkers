@@ -1,6 +1,6 @@
 /*
 ¨Nicolas Kheirallah
-Headers for Player.c and Game.C , contains several functions
+Headers for bonus.c and Game.C , contains several functions
 */
 
 int check_GameBoard_end(int player, int next_y);

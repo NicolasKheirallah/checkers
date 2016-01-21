@@ -7,7 +7,7 @@ Creates the GameBoard and the main rules of the game
 #include <stdio.h>
 #include <string.h>
 #include "helpers.h"
-#include "player.h"
+#include "bonus.h"
 
 void update_checker(int player);
 void use_bonus(int c, int player, int GameBoard[9][8], char move_control[9][8]);

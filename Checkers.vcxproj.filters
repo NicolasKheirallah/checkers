@@ -24,7 +24,7 @@
     <ClCompile Include="game.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="player.c">
+    <ClCompile Include="Bonus.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <ClInclude Include="helpers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
+    <ClInclude Include="BONUS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

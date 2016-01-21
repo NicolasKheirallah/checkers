@@ -8,7 +8,7 @@ This code explain what functions the player has
 #include <stdlib.h>
 #include <stdio.h>
 #include "helpers.h"
-#include "player.h"
+#include "bonus.h"
 
 //This code checks what the user wants for special feature when reaching the end of the GameBoard
 int bonus()

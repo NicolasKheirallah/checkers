@@ -85,11 +85,11 @@
     <ClCompile Include="game.c" />
     <ClCompile Include="helpers.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="player.c" />
+    <ClCompile Include="Bonus.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helpers.h" />
-    <ClInclude Include="player.h" />
+    <ClInclude Include="BONUS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
