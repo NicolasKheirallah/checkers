@@ -115,7 +115,7 @@ int Check_ValidMove(char move_control[9][8], int next_x, int next_y)
 int check_collision(int GameBoard[9][8], int next_x, int next_y, int player) // checks so the checkers doesn't collide
 {
 	if (player == 1) {
-		if (GameBoard[next_y - 1][next_x - 1] == 1) {
+		if (GameBoard[next_x - 1][next_y - 1] == 1) {
 			return 0;
 		}
 		else {
@@ -123,7 +123,7 @@ int check_collision(int GameBoard[9][8], int next_x, int next_y, int player) // 
 		}
 	}
 	if (player == 2) {
-		if (GameBoard[next_y - 1][next_x - 1] == 2) {
+		if (GameBoard[next_x - 1][next_y - 1] == 2) {
 			return 0;
 		}
 		else {
@@ -158,15 +158,15 @@ int controll_checkerDirection(int player, int y_pos, int next_y)
 
 int check_movement(char move_control[9][8], int GameBoard[9][8], int x_pos, int y_pos, int next_x, int next_y, int player)
 {
-	if (check_steps(x_pos, y_pos, next_y, next_x) != 1) {
+	if (check_steps(x_pos, y_pos, next_x, next_y) != 1) {
 		printf("Only one step is allowed !\n");
 		return 0;
 	}
-	else if (Check_ValidMove(move_control, next_y, next_x) != 1) {
+	else if (Check_ValidMove(move_control, next_x, next_y) != 1) {
 		printf("\n  Only Sideways is alowed!\n");
 		return 0;
 	}
-	else if (check_collision(GameBoard, next_y, next_x, player) != 1) {
+	else if (check_collision(GameBoard, next_x, next_y, player) != 1) {
 		printf("\n Invalid move!\n");
 		return 0;
 	}

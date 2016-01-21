@@ -52,8 +52,8 @@ int delete_enemy(int player, int GameBoard[9][8])
 	scanf_s("%d %d", &x, &y);
 
 	if (player == 1) {
-		if (GameBoard[x - 1][y - 1] == 2) {
-
+		if (GameBoard[x - 1][y - 1] == 2)
+		{
 			GameBoard[x - 1][y - 1] = 0;
 			return 1;
 		}
@@ -62,8 +62,10 @@ int delete_enemy(int player, int GameBoard[9][8])
 			return 0;
 		}
 	}
-	if (player == 2) {
-		if (GameBoard[x - 1][y - 1] == 1) {
+	if (player == 2) 
+	{
+		if (GameBoard[x - 1][y - 1] == 1) 
+		{
 			GameBoard[x - 1][y - 1] = 0;
 			return 1;
 		}
