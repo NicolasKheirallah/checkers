@@ -95,15 +95,21 @@ void move_phase()
 	{
 		x = 0, y = 0;
 		printf("\n Input first X and then Y value for the piece you want to move , if you can't move type 0 and then 0 \n");
-		scanf_s("\n %d %d",&x,&y);
+		printf("\n Input X:" );
+		scanf_s("%d", &x);
+		printf("\n Input Y:");
+		scanf_s("\n %d", &y);
 
 		if(check_checker(GameBoard, playerTurn,y,x) == 1 ){
 
 			while(1){
 				
 				next_x = 0, next_y = 0;
-				printf(" Input first X and then Y value for the piece you want to move .\n OR type: '-1' and '-1' for going back one step\n");
-				scanf_s("%d %d",&next_x,&next_y);
+				printf("\n Input first X and then Y value for the piece you want to move , if you can't move type -1 and then -1 \n");
+				printf("\n Input X:");
+				scanf_s("%d", &x);
+				printf("\n Input Y:");
+				scanf_s("\n %d", &y);
 				if(next_x == -1 && next_y == -1){
 					//next turn
 					break;
