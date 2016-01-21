@@ -114,18 +114,18 @@ void move_phase()
 					//next turn
 					break;
 				}
-				if(check_movement(move_control,GameBoard,y,x, next_x, next_y, playerTurn) == 1){
-					if(takeOver(playerTurn,GameBoard,y,x, next_x, next_y) == 1){
+				if(check_movement(move_control,GameBoard,x,y, next_x, next_y, playerTurn) == 1){
+					if(takeOver(playerTurn,GameBoard,x,y, next_x, next_y) == 1){
 						update_checker(playerTurn);
 						control = 1;
 						break;
 					}
-					else if(takeOver(playerTurn,GameBoard,y,x, next_x, next_y) == 0){
+					else if(takeOver(playerTurn,GameBoard, x, y, next_x, next_y) == 0){
 						printf("Invalid!\n");
 						break;
 					}
-					else if(takeOver(playerTurn,GameBoard,y,x, next_x, next_y) == 2){
-						update_position(playerTurn,GameBoard,y,x,next_x, next_y);
+					else if(takeOver(playerTurn,GameBoard, x, y, next_x, next_y) == 2){
+						update_position(playerTurn,GameBoard, x, y,next_x, next_y);
 						control = 1;
 						break;
 					}
