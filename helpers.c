@@ -18,6 +18,20 @@ int edge[9][8] =	 { 1,1,1,1,1,1,1,1, // 1 = the edge of the board
 };
 
 
+int changeTurn(int *p)
+{
+	if (*p == 1) {
+		return 2;//change turns
+	}
+	if (*p == 2) {
+		return 1;
+	}
+	return 0;
+}
+
+
+
+
 int is_enemy(int checker) //checks if it's an enemy you move to
 {
 	if (checker == 1 || checker == 3) {
@@ -26,27 +40,18 @@ int is_enemy(int checker) //checks if it's an enemy you move to
 	if (checker == 2 || checker == 4) {
 		return 1;
 	}
-	return 0;
 }
 
 
-int switch_player(int *player)
-{
-	if (*player == 1) {
-		return 2;//change turns
-	}
-	if (*player == 2) {
-		return 1;
-	}
-	return 0;
-}
+
 
 int pause() //selfexplaining
 {
 	int c;
 	printf("\n PRESS ENTER to CONTINUE");
 	while ((c = getchar()) != '\n' && c != EOF); //EOF =End of File
-	return 0;
+	getchar();
+	return 1;
 }
 
 
@@ -82,8 +87,8 @@ int check_checker(int GameBoard[9][8], int player, int x, int y)//check checker 
 
 int check_steps(int x_pos, int y_pos, int next_x, int next_y) //player can only move one step
 {
-	if ((next_x > x_pos + 1 ||next_y > y_pos + 1 ) ||
-		(next_x < x_pos - 1 ||next_y < y_pos - 1 )) {
+	if ((next_x > x_pos + 1 || next_y > y_pos + 1) ||
+		(next_x < x_pos - 1 || next_y < y_pos - 1)) {
 		return 0;
 	}
 	else {
@@ -107,7 +112,7 @@ int Check_ValidMove(char move_control[9][8], int next_x, int next_y)
 
 
 
-int check_collision(int GameBoard[9][8], int next_x, int next_y, int player) // checks so the checkers doesn't collide
+int check_collision(int GameBoard[9][8], int next_x, int next_y, int player) // checks so the checkers doesn't collide (same color)
 {
 	if (player == 1) {
 		if (GameBoard[next_x - 1][next_y - 1] == 1) {
@@ -117,7 +122,7 @@ int check_collision(int GameBoard[9][8], int next_x, int next_y, int player) // 
 			return 1;
 		}
 	}
-	if (player == 2) {
+	if (player == 2) { 
 		if (GameBoard[next_x - 1][next_y - 1] == 2) {
 			return 0;
 		}
@@ -129,7 +134,7 @@ int check_collision(int GameBoard[9][8], int next_x, int next_y, int player) // 
 }
 
 
-int controll_checkerDirection(int player, int y_pos, int next_y)
+int controll_checkerDirection(int player, int y_pos, int next_y) //makes sure the checker goes correct
 {
 	if (player == 1) {
 		if (y_pos - 1 > next_y - 1) {
@@ -147,13 +152,12 @@ int controll_checkerDirection(int player, int y_pos, int next_y)
 			return 1;
 		}
 	}
-	return 0;
 }
 
 
 int check_movement(char move_control[9][8], int GameBoard[9][8], int x_pos, int y_pos, int next_x, int next_y, int player)
 {
-	if (check_steps(x_pos, y_pos, next_x, next_y) != 1) {
+	if (check_steps(x_pos, y_pos,next_x, next_y) != 1) {
 		printf("Only one step is allowed !\n");
 		return 0;
 	}
@@ -165,7 +169,7 @@ int check_movement(char move_control[9][8], int GameBoard[9][8], int x_pos, int 
 		printf("\n Invalid move!\n");
 		return 0;
 	}
-	else if (controll_checkerDirection(player, y_pos, next_y) != 1) {
+	else if (controll_checkerDirection(player, next_x, next_y) != 1) {
 		printf("\n Wrong way!\n");
 		return 0;
 	}
@@ -216,10 +220,6 @@ int at_edge(int next_x, int next_y)//checks if we are at the edge
 }
 
 
-
-
-
-
 int takeOver(int player, int GameBoard[9][8], int x_pos, int y_pos, int next_x, int next_y)
 {
 	int direction = check_sides(x_pos, next_x);
@@ -241,38 +241,38 @@ int takeOver(int player, int GameBoard[9][8], int x_pos, int y_pos, int next_x, 
 				}
 			}
 			else if (direction == 2) {//left
-				if (GameBoard[(next_x - 1) + 1][(next_y - 1) - 1] == 2) {
+				if (GameBoard[(next_x - 1) - 1][(next_y - 1) + 1] == 2) {
 					return 0;
 				}
-				else if (GameBoard[(next_x - 1) + 1][(next_y - 1) - 1] == 1) {
+				else if (GameBoard[(next_x - 1) - 1][(next_y - 1) + 1] == 1) {
 					return 0;
 				}
 				else {
-					if (at_edge(next_x, next_y) == 1) {
-						checker_takeover(player, GameBoard, x_pos, y_pos, next_x, next_y, direction);
+					if (at_edge(next_x, next_y) == 1) { 
+						checker_takeover(player, GameBoard, x_pos, y_pos, next_x, next_y, direction); // takes the piece and double hoops
 						return 1;
 					}
 					return 0;
 				}
 			}
 		}
-		else {
-			return 2;
+		else { 
+			return 2; 
 		}
 	}
 	if (player == 2) {
 		if (GameBoard[next_x - 1][next_y - 1] == 1) {
 
 			if (direction == 1) {
-				if (GameBoard[(next_x - 1) - 1][(next_y - 1) + 1] == 1) {
+				if (GameBoard[(next_x - 1) + 1][(next_y - 1) - 1] == 1) {
 					return 0;
 				}
-				else if (GameBoard[(next_x - 1) - 1][(next_y - 1) + 1] == 2) {
+				else if (GameBoard[(next_x - 1) + 1][(next_y - 1) - 1] == 2) {
 					return 0;
 				}
 				else {
 					if (at_edge(next_x, next_y) == 1) {
-						checker_takeover(player, GameBoard, x_pos, y_pos, next_y, next_x, direction);
+						checker_takeover(player, GameBoard, x_pos, y_pos, next_x,next_y, direction);
 						return 1;
 					}
 					return 0;
@@ -298,7 +298,6 @@ int takeOver(int player, int GameBoard[9][8], int x_pos, int y_pos, int next_x, 
 			return 2;
 		}
 	}
-	return 0;
 }
 
 void checker_takeover(int player, int GameBoard[9][8], int x_pos, int y_pos, int next_x, int next_y, int direction) //updates the position after a takeover
@@ -312,13 +311,13 @@ void checker_takeover(int player, int GameBoard[9][8], int x_pos, int y_pos, int
 		}
 		if (direction == 2) {
 			GameBoard[next_x - 1][next_y - 1] = 0;
-			update_position(player, GameBoard, x_pos, y_pos, next_x + 1, next_y - 1);
+			update_position(player, GameBoard, x_pos, y_pos, next_x - 1, next_y + 1);
 		}
 		break;
 	case 2:
 		if (direction == 1) {
 			GameBoard[next_x - 1][next_y - 1] = 0;
-			update_position(player, GameBoard, x_pos, y_pos, next_x - 1, next_y + 1);
+			update_position(player, GameBoard, x_pos, y_pos, next_x + 1, next_y - 1);
 		}
 		if (direction == 2) {
 			GameBoard[next_x - 1][next_y - 1] = 0;

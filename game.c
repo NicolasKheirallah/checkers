@@ -7,7 +7,7 @@ Creates the GameBoard and the main rules of the game
 #include <stdio.h>
 #include <string.h>
 #include "helpers.h"
-#include "bonus.h"
+#include "player.h"
 
 void update_checker(int player);
 void use_bonus(int c, int player, int GameBoard[9][8], char move_control[9][8]);
@@ -53,7 +53,7 @@ void draw_GameBoard(int GameBoard[9][8])
 		z++;
 		for (x = 0; x < 8; x++) {
 			printf("|");//creates the wall
-			switch (GameBoard[y][x]) { // when they reach the end they become King or queen
+			switch (GameBoard[x][y]) { // when they reach the end they become caps
 			case 0:
 				printf(" ");
 				break;
@@ -95,37 +95,31 @@ void move_phase()
 	{
 		x = 0, y = 0;
 		printf("\n Input first X and then Y value for the piece you want to move , if you can't move type 0 and then 0 \n");
-		printf("\n Input X:" );
-		scanf_s("%d", &x);
-		printf("\n Input Y:");
-		scanf_s("\n %d", &y);
+		scanf_s("\n %d %d",&x,&y);
 
-		if(check_checker(GameBoard, playerTurn,y,x) == 1 ){
+		if(check_checker(GameBoard, playerTurn,x,y) == 1 ){
 
 			while(1){
 				
 				next_x = 0, next_y = 0;
-				printf("\n Input first X and then Y value for the piece you want to move , if you can't move type -1 and then -1 \n");
-				printf("\n Input X:");
-				scanf_s("%d", &next_x);
-				printf("\n Input Y:");
-				scanf_s("\n %d", &next_y);
+				printf(" Input first X and then Y value for the piece you want to move .\n OR type: '-1' and '-1' for going back one step\n");
+				scanf_s("%d %d",&next_x,&next_y);
 				if(next_x == -1 && next_y == -1){
 					//next turn
 					break;
 				}
-				if(check_movement(move_control,GameBoard,x,y, next_x, next_y, playerTurn) == 1){
-					if(takeOver(playerTurn,GameBoard,x,y, next_x, next_y) == 1){
+				if(check_movement(move_control,GameBoard,x,y,next_x,next_y, playerTurn) == 1){ // Enemy
+					if(takeOver(playerTurn,GameBoard, x, y, next_x, next_y) == 1){
 						update_checker(playerTurn);
 						control = 1;
 						break;
 					}
-					else if(takeOver(playerTurn,GameBoard, x, y, next_x, next_y) == 0){
-						printf("Invalid!\n");
+					else if(takeOver(playerTurn,GameBoard, x, y, next_x, next_y) == 0){ // your own piece is behind you
+						printf("Invalid move!\n");
 						break;
 					}
-					else if(takeOver(playerTurn,GameBoard, x, y, next_x, next_y) == 2){
-						update_position(playerTurn,GameBoard, x, y,next_x, next_y);
+					else if(takeOver(playerTurn,GameBoard, x, y, next_x, next_y) == 2){ //no Enemy
+						update_position(playerTurn,GameBoard, x, y, next_x, next_y);
 						control = 1;
 						break;
 					}
@@ -174,7 +168,7 @@ void run()
 		draw_GameBoard(GameBoard);//creates the GameBoard
 		write_turn(&playerTurn);
 		move_phase();
-		playerTurn = switch_player(&playerTurn); //next turn
+		playerTurn = changeTurn(&playerTurn); //next turn
 	}
 	winner();
 	pause();
